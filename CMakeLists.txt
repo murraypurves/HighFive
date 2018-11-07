@@ -12,10 +12,17 @@ enable_testing()
 set(HIGHFIVE_VERSION_MAJOR 2)
 set(HIGHFIVE_VERSION_MINOR 0)
 
+IF(COMMAND TRIBITS_PACKAGE)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake
+  ${CMAKE_CURRENT_SOURCE_DIR}/CMake/portability
+  ${CMAKE_CURRENT_SOURCE_DIR}/CMake/packages
+  ${CMAKE_CURRENT_SOURCE_DIR}/CMake/config)
+ELSE()
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake
   ${PROJECT_SOURCE_DIR}/CMake/portability
   ${PROJECT_SOURCE_DIR}/CMake/packages
   ${PROJECT_SOURCE_DIR}/CMake/config)
+ENDIF()
 
 include(DefineInstallationPaths)
 include(ReleaseDebugAutoFlags)
