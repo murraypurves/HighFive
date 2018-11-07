@@ -1,5 +1,11 @@
-project(HighFive)
-cmake_minimum_required(VERSION 3.0)
+IF(COMMAND TRIBITS_PACKAGE)
+  TRIBITS_PACKAGE(HighFive)
+  SET(HighFive_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+  option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ${BUILD_SHARED_LIBS})
+ELSE()
+  project(HighFive)
+  cmake_minimum_required(VERSION 3.0)
+ENDIF()
 
 enable_testing()
 
@@ -56,3 +62,7 @@ endif()
 
 add_subdirectory(tests/unit)
 add_subdirectory(doc)
+
+IF(COMMAND TRIBITS_PACKAGE_POSTPROCESS)
+  TRIBITS_PACKAGE_POSTPROCESS()
+ENDIF()
