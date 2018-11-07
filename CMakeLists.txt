@@ -13,15 +13,15 @@ set(HIGHFIVE_VERSION_MAJOR 2)
 set(HIGHFIVE_VERSION_MINOR 0)
 
 IF(COMMAND TRIBITS_PACKAGE)
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake
-  ${CMAKE_CURRENT_SOURCE_DIR}/CMake/portability
-  ${CMAKE_CURRENT_SOURCE_DIR}/CMake/packages
-  ${CMAKE_CURRENT_SOURCE_DIR}/CMake/config)
+  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake
+    ${CMAKE_CURRENT_SOURCE_DIR}/CMake/portability
+    ${CMAKE_CURRENT_SOURCE_DIR}/CMake/packages
+    ${CMAKE_CURRENT_SOURCE_DIR}/CMake/config)
 ELSE()
-list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake
-  ${PROJECT_SOURCE_DIR}/CMake/portability
-  ${PROJECT_SOURCE_DIR}/CMake/packages
-  ${PROJECT_SOURCE_DIR}/CMake/config)
+  list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake
+    ${PROJECT_SOURCE_DIR}/CMake/portability
+    ${PROJECT_SOURCE_DIR}/CMake/packages
+    ${PROJECT_SOURCE_DIR}/CMake/config)
 ENDIF()
 
 include(DefineInstallationPaths)
@@ -61,7 +61,11 @@ endif()
 
 # Absolute include used to avoid interaction with downstream projects including
 # HighFive as a subproject and using the the same filename
-include(${PROJECT_SOURCE_DIR}/CMake/PackageConfig.cmake)
+IF(COMMAND TRIBITS_PACKAGE)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/CMake/PackageConfig.cmake)
+ELSE()
+  include(${PROJECT_SOURCE_DIR}/CMake/PackageConfig.cmake)
+ENDIF()
 
 if(HIGHFIVE_EXAMPLES)
   add_subdirectory(src/examples)
