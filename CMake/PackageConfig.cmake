@@ -24,11 +24,13 @@ install(FILES ${PROJECT_BINARY_DIR}/HighFiveConfig.cmake
 # Generate ${PROJECT_NAME}Targets.cmake; is written after the CMake run
 # succeeds. Provides IMPORTED targets when using this project from the install
 # tree.
-install(EXPORT HighFiveTargets FILE ${PROJECT_NAME}Targets.cmake
-  DESTINATION share/${PROJECT_NAME}/CMake)
+IF(NOT COMMAND TRIBITS_PACKAGE)
+  install(EXPORT HighFiveTargets FILE ${PROJECT_NAME}Targets.cmake
+    DESTINATION share/${PROJECT_NAME}/CMake)
 
-install(TARGETS HighFive EXPORT ${PROJECT_NAME}Targets
-  INCLUDES DESTINATION include)
+  install(TARGETS HighFive EXPORT ${PROJECT_NAME}Targets
+    INCLUDES DESTINATION include)
 
-export(EXPORT HighFiveTargets
-  FILE "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake")
+  export(EXPORT HighFiveTargets
+    FILE "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake")
+ENDIF()
